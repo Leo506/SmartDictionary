@@ -19,14 +19,21 @@ namespace SmartDictionary
     /// </summary>
     public partial class AddWord : Window
     {
+        AddWordViewModel viewModel;
         public AddWord()
         {
             InitializeComponent();
+            viewModel = new AddWordViewModel();
+            this.DataContext = viewModel;
         }
 
         private void Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            var result = viewModel.AddWord();
+            if (!result)
+                MessageBox.Show("Уже есть такое слово");
+            else
+                DialogResult = true;
         }
     }
 }

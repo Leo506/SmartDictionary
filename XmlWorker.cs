@@ -13,6 +13,16 @@ namespace SmartDictionary.XML
     {
         const string fileName = "Dict.xml";
 
+        static XmlWorker()
+        {
+            if (!File.Exists(fileName))
+            {
+                var doc = new XDocument();
+                doc.Add(new XElement("Dict"));
+                doc.Save(fileName);
+            }
+        }
+
 
         /// <summary>
         /// Добавляет новую запись в XML файл
@@ -21,15 +31,7 @@ namespace SmartDictionary.XML
         /// <param name="translation">Перевод слова</param>
         public static void AddRecord(string word, string translation)
         {
-            XDocument doc;
-
-            if (!File.Exists(fileName))
-            {
-                doc = new XDocument();
-                doc.Add(new XElement("Dict"));
-            }
-            else
-                doc = XDocument.Load(fileName);
+            XDocument doc = XDocument.Load(fileName);
 
             var root = doc.Root;
 
@@ -40,6 +42,7 @@ namespace SmartDictionary.XML
                 element.Add(new XAttribute("word", word.ToLower()), new XAttribute("translation", translation.ToLower()));
                 root.Add(element);
             }
+
             doc.Save(fileName);
 
         }
@@ -50,13 +53,9 @@ namespace SmartDictionary.XML
         /// </summary>
         /// <param name="word">Слово</param>
         /// <returns></returns>
-        /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="Exception"></exception>
         public static string GetTranslation(string word)
         {
-            if (!File.Exists(fileName))
-                throw new FileNotFoundException(fileName);
-
             XDocument doc = XDocument.Load(fileName);
 
             var root = doc.Root;
@@ -77,12 +76,9 @@ namespace SmartDictionary.XML
         /// </summary>
         /// <param name="translation">Перевод слова</param>
         /// <returns></returns>
-        /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="Exception"></exception>
         public static string GetWord(string translation)
         {
-            if (!File.Exists(fileName))
-                throw new FileNotFoundException();
 
             XDocument doc = XDocument.Load(fileName);
 

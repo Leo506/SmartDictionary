@@ -10,27 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SmartDictionary
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для AddWord.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddWord : Window
     {
-        public MainWindow()
+        public AddWord()
         {
             InitializeComponent();
         }
 
-
-        private void OpenAddWordWindow(object sender, RoutedEventArgs e)
+        private void Click(object sender, RoutedEventArgs e)
         {
-            // Показываем окно
-            var addWord = new AddWord();
-            addWord.ShowDialog();
+            DialogResult = true;
         }
     }
 }

@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartDictionary"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="334">
     <Grid>
-
+        <Menu>
+            <MenuItem Header="Dictionary">
+                <MenuItem Header="Добавить новое слово" Click="OpenAddWordWindow"/>
+            </MenuItem>
+        </Menu>
     </Grid>
 </Window>

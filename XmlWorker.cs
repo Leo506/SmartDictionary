@@ -59,12 +59,10 @@ namespace SmartDictionary.XML
         /// </summary>
         /// <param name="word">Слово</param>
         /// <returns></returns>
-        /// <exception cref="FileNotFoundException"></exception>
-        /// <exception cref="Exception"></exception>
         public static string? GetTranslation(string word)
         {
             if (!File.Exists(fileName))
-                throw new FileNotFoundException(fileName);
+                return null;
 
             XDocument doc = XDocument.Load(fileName);
 
@@ -86,12 +84,10 @@ namespace SmartDictionary.XML
         /// </summary>
         /// <param name="translation">Перевод слова</param>
         /// <returns></returns>
-        /// <exception cref="FileNotFoundException"></exception>
-        /// <exception cref="Exception"></exception>
         public static string? GetWord(string translation)
         {
             if (!File.Exists(fileName))
-                throw new FileNotFoundException();
+                return null;
 
             XDocument doc = XDocument.Load(fileName);
 

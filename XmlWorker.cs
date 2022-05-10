@@ -35,8 +35,11 @@ namespace SmartDictionary.XML
 
 
             if (root != null)
-                root.Add(new XElement("Record"), new XAttribute("word", word), new XAttribute("translation", translation));
-
+            {
+                var element = new XElement("Record");
+                element.Add(new XAttribute("word", word.ToLower()), new XAttribute("translation", translation.ToLower()));
+                root.Add(element);
+            }
             doc.Save(fileName);
 
         }

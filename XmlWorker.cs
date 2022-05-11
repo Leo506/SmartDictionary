@@ -102,5 +102,51 @@ namespace SmartDictionary.XML
 
             return null;
         }
+
+
+
+        /// <summary>
+        /// Получение общего кол-ва записей в файле
+        /// </summary>
+        /// <returns></returns>
+        public static int GetRecordsCount()
+        {
+            if (!File.Exists(fileName))
+                return -1;
+
+            XDocument doc = XDocument.Load(fileName);
+
+            return doc.Root.Elements("Record").Count();
+        }
+
+
+
+        /// <summary>
+        /// Получение записи по ее индексу
+        /// </summary>
+        /// <param name="index">Индекс записи</param>
+        /// <returns></returns>
+        public static Word? GetRecord(int index)
+        {
+            if (!File.Exists(fileName))
+                return null;
+
+            XDocument doc = XDocument.Load(fileName);
+
+            int i = 0;
+            foreach (var item in doc.Root.Elements("Record"))
+            {
+                if (i == index)
+                {
+                    var word = item.Attribute("word").Value;
+                    var translation = item.Attribute("translation").Value;
+
+                    return new Word { translation = translation, word = word };
+                }
+                i++;
+            }
+
+            return null;
+        }
     }
 }

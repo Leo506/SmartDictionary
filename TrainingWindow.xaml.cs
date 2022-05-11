@@ -19,9 +19,23 @@ namespace SmartDictionary
     /// </summary>
     public partial class TrainingWindow : Window
     {
+        TrainingViewModel viewModel;
         public TrainingWindow()
         {
             InitializeComponent();
+            viewModel = new TrainingViewModel();
+            this.DataContext = viewModel;
+        }
+
+        private void CheckInput(object sender, RoutedEventArgs e)
+        {
+            string text = "";
+            if (viewModel.CheckInput(Input.Text))
+                text = "Это правильный ответ!!!";
+            else
+                text = "Увы, вы ошиблись";
+
+            MessageBox.Show(text);
         }
     }
 }

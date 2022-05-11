@@ -32,5 +32,12 @@ namespace SmartDictionary
             var addWord = new AddWord();
             addWord.ShowDialog();
         }
+
+
+        private void OpenTrainingWindow(object sender, RoutedEventArgs e)
+        {
+            var trainging = new TrainingWindow();
+            trainging.ShowDialog();
+        }
     }
 }

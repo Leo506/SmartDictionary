@@ -41,7 +41,16 @@ namespace SmartDictionary
 
         public Word GetRandomWord()
         {
-            throw new NotImplementedException();
+            var all = XmlWorker.GetRecordsCount();
+            var random = new Random();
+            var index = random.Next(all);
+
+            var result = XmlWorker.GetRecord(index);
+
+            if (result != null)
+                return result.Value;
+            
+            return new Word { translation = "", word = "" };
         }
     }
 }

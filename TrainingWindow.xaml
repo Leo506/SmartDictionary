@@ -15,8 +15,8 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="Напиши перевод слова" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" FontFamily="Comic Sans MS" FontWeight="Bold"/>
-        <TextBlock Grid.Row="1" Text="Some word" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="20"/>
-        <TextBox Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="31"/>
-        <Button Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Подтвердить" FontFamily="Comic Sans MS" Height="59" Width="138" FontSize="20"/>
+        <TextBlock Grid.Row="1" Text="{Binding HiddenWord.translation}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="20"/>
+        <TextBox x:Name="Input" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="31"/>
+        <Button Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Подтвердить" FontFamily="Comic Sans MS" Height="59" Width="138" FontSize="20" Click="CheckInput"/>
     </Grid>
 </Window>

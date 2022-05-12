@@ -56,5 +56,11 @@ namespace SmartDictionary
                 }
             }
         }
+
+        private void OpenAllWordsWindow(object sender, RoutedEventArgs e)
+        {
+            var window = new ViewWordsWindow();
+            window.ShowDialog();
+        }
     }
 }

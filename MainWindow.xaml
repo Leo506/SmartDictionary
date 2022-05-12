@@ -15,6 +15,7 @@
             <MenuItem Header="Dictionary">
                 <MenuItem Header="Добавить новое слово" Click="OpenAddWordWindow"/>
                 <MenuItem Header="Добавить из CSV-файла" Click="OpenSelectFile"/>
+                <MenuItem Header="Посмотреть все слова" Click="OpenAllWordsWindow"/>
             </MenuItem>
         </Menu>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Готов к тренировке?" FontWeight="Bold" FontFamily="Comic Sans MS" FontSize="30" TextDecorations="{x:Null}" FontStyle="Normal" Height="51" Width="314"/>

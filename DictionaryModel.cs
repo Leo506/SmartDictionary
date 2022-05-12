@@ -25,8 +25,7 @@ namespace SmartDictionary
         /// <returns></returns>
         public bool AddNewWord(string word, string translate)
         {
-            var toCheck = XmlWorker.GetWord(translate);
-            if (toCheck != null)
+            if (!CheckWord(translate))
                 return false;
 
             XmlWorker.AddRecord(word, translate);
@@ -69,8 +68,17 @@ namespace SmartDictionary
                 var word  = words[0];
                 var translation = words[1];
 
-                XmlWorker.AddRecord(word, translation);
+                if (CheckWord(translation))
+                    XmlWorker.AddRecord(word, translation);
             }
+        }
+
+        private bool CheckWord(string translation)
+        {
+            var toCheck = XmlWorker.GetWord(translation);
+            if (toCheck != null)
+                return false;
+            return true;
         }
     }
 }

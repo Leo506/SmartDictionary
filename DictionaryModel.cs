@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SmartDictionary.XML;
+using System.IO;
 
 namespace SmartDictionary
 {
@@ -39,6 +40,7 @@ namespace SmartDictionary
         }
 
 
+
         public Word GetRandomWord()
         {
             var all = XmlWorker.GetRecordsCount();
@@ -51,6 +53,24 @@ namespace SmartDictionary
                 return result.Value;
             
             return new Word { translation = "", word = "" };
+        }
+
+
+        /// <summary>
+        /// Записать слова из CSV-файла
+        /// </summary>
+        /// <param name="pathToFile">Путь к файлу</param>
+        public void AddWordsFromCsv(string pathToFile)
+        {
+            var strings = File.ReadAllLines(pathToFile);
+            foreach (var s in strings)
+            {
+                var words = s.Split(',');
+                var word  = words[0];
+                var translation = words[1];
+
+                XmlWorker.AddRecord(word, translation);
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,11 @@ namespace SmartDictionary
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainViewModel viewModel;
         public MainWindow()
         {
             InitializeComponent();
+            viewModel = new MainViewModel();
         }
 
 
@@ -38,6 +41,20 @@ namespace SmartDictionary
         {
             var trainging = new TrainingWindow();
             trainging.ShowDialog();
+        }
+
+
+        private void OpenSelectFile(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.OpenFileDialog())
+            {
+                var dialogResult = dialog.ShowDialog();
+
+                if (dialogResult == System.Windows.Forms.DialogResult.OK)
+                {
+                    viewModel.AddFromCSV(dialog.FileName);
+                }
+            }
         }
     }
 }

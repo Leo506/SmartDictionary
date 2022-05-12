@@ -33,14 +33,18 @@ namespace SmartDictionary
         {
             // Показываем окно
             var addWord = new AddWord();
+            this.Visibility = Visibility.Collapsed;
             addWord.ShowDialog();
+            this.Visibility = Visibility.Visible;
         }
 
 
         private void OpenTrainingWindow(object sender, RoutedEventArgs e)
         {
             var trainging = new TrainingWindow();
+            this.Visibility = Visibility.Collapsed;
             trainging.ShowDialog();
+            this.Visibility= Visibility.Visible;
         }
 
 
@@ -60,7 +64,9 @@ namespace SmartDictionary
         private void OpenAllWordsWindow(object sender, RoutedEventArgs e)
         {
             var window = new ViewWordsWindow();
+            this.Visibility = Visibility.Collapsed;
             window.ShowDialog();
+            this.Visibility = Visibility.Visible;
         }
     }
 }

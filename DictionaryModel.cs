@@ -5,13 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using SmartDictionary.XML;
 using System.IO;
+using System.Xml.Linq;
 
 namespace SmartDictionary
 {
-    public struct Word
+    public struct Word : IXmlRecord
     {
         public string word { get; set; }
         public string translation { get; set; }
+        public string notes { get; set; }
+
+        public XElement GetElement()
+        {
+            var element = new XElement("Record");
+            element.Add(new XAttribute("word", word.ToLower()), new XAttribute("translation", translation.ToLower()), new XAttribute("notes", notes.ToLower()));
+            return element;
+        }
     }
 
     public class DictionaryModel
@@ -28,7 +37,7 @@ namespace SmartDictionary
             if (!CheckWord(translate))
                 return false;
 
-            WordRecord record = new WordRecord(word, translate, "");
+            Word record = new Word() { word = word, translation = translate, notes = "" };
             XmlWorker.AddRecord(record);
 
             return true;
@@ -47,7 +56,7 @@ namespace SmartDictionary
             if (!CheckWord(translation))
                 return false;
 
-            WordRecord record = new WordRecord(word, translation, notes);
+            Word record = new Word() { word = word, translation = translation, notes = notes };
             XmlWorker.AddRecord(record);
 
             return true;
@@ -93,7 +102,7 @@ namespace SmartDictionary
                     notes = words[2];
 
                 if (CheckWord(translation))
-                    XmlWorker.AddRecord(new WordRecord(word, translation, notes));
+                    XmlWorker.AddRecord(new Word() { word = word, translation = translation, notes = notes});
             }
         }
 

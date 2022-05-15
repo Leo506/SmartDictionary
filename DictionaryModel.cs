@@ -28,7 +28,27 @@ namespace SmartDictionary
             if (!CheckWord(translate))
                 return false;
 
-            XmlWorker.AddRecord(word, translate);
+            WordRecord record = new WordRecord(word, translate, "");
+            XmlWorker.AddRecord(record);
+
+            return true;
+        }
+
+
+        /// <summary>
+        /// Добавляет в словарь новое слово и его перевод
+        /// </summary>
+        /// <param name="word">Слово</param>
+        /// <param name="translation">Перевод</param>
+        /// <param name="notes">Примечания</param>
+        /// <returns></returns>
+        public bool AddNewWord(string word, string translation, string notes)
+        {
+            if (!CheckWord(translation))
+                return false;
+
+            WordRecord record = new WordRecord(word, translation, notes);
+            XmlWorker.AddRecord(record);
 
             return true;
         }
@@ -68,8 +88,12 @@ namespace SmartDictionary
                 var word  = words[0];
                 var translation = words[1];
 
+                var notes = "";
+                if (words.Count() == 3)
+                    notes = words[2];
+
                 if (CheckWord(translation))
-                    XmlWorker.AddRecord(word, translation);
+                    XmlWorker.AddRecord(new WordRecord(word, translation, notes));
             }
         }
 

@@ -27,9 +27,8 @@ namespace SmartDictionary.XML
         /// <summary>
         /// Добавляет новую запись в XML файл
         /// </summary>
-        /// <param name="word">Слово</param>
-        /// <param name="translation">Перевод слова</param>
-        public static void AddRecord(string word, string translation)
+        /// <param name="record">Запись</param>
+        public static void AddRecord(IXmlRecord record)
         {
             XDocument doc;
 
@@ -45,14 +44,10 @@ namespace SmartDictionary.XML
 
 
             if (root != null)
-            {
-                var element = new XElement("Record");
-                element.Add(new XAttribute("word", word.ToLower()), new XAttribute("translation", translation.ToLower()));
-                root.Add(element);
-            }
+                root.Add(record.GetElement());
+
             doc.Save(fileName);
         }
-
 
         /// <summary>
         /// Получение перевода конкретного слова

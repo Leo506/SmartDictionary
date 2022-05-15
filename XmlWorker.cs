@@ -49,53 +49,20 @@ namespace SmartDictionary.XML
             doc.Save(fileName);
         }
 
-        /// <summary>
-        /// Получение перевода конкретного слова
-        /// </summary>
-        /// <param name="word">Слово</param>
-        /// <returns></returns>
-        public static string? GetTranslation(string word)
+
+        public static string? GetAttributeValue(string targetAttr, string keyAttr, string valueAttr)
         {
             if (!File.Exists(fileName))
                 return null;
 
             XDocument doc = XDocument.Load(fileName);
-
             var root = doc.Root;
 
-            foreach (var record in root.Elements("Record"))
-            {
-                if (record.Attribute("word") != null)
-                    if (record.Attribute("word").Value == word)
-                        return record.Attribute("translation").Value;
-            }
-
-            return null;
-        }
-
-
-        /// <summary>
-        /// Получение слова по его переводу
-        /// </summary>
-        /// <param name="translation">Перевод слова</param>
-        /// <returns></returns>
-        public static string? GetWord(string translation)
-        {
-            if (!File.Exists(fileName))
+            var tmp = root?.Elements("Record").Where(el => el.Attribute(keyAttr)?.Value == valueAttr).ToArray();
+            if (tmp?.Length == 0)
                 return null;
 
-            XDocument doc = XDocument.Load(fileName);
-
-            var root = doc.Root;
-
-            foreach (var record in root.Elements("Record"))
-            {
-                if (record.Attribute("translation") != null)
-                    if (record.Attribute("translation").Value == translation)
-                        return record.Attribute("word").Value;
-            }
-
-            return null;
+            return tmp?[0].Attribute(targetAttr)?.Value;
         }
 
 
@@ -107,7 +74,7 @@ namespace SmartDictionary.XML
         public static int GetRecordsCount()
         {
             if (!File.Exists(fileName))
-                return -1;
+                return 0;
 
             XDocument doc = XDocument.Load(fileName);
 
@@ -121,7 +88,7 @@ namespace SmartDictionary.XML
         /// </summary>
         /// <param name="index">Индекс записи</param>
         /// <returns></returns>
-        public static Word? GetRecord(int index)
+        public static XElement? GetRecord(int index)
         {
             if (!File.Exists(fileName))
                 return null;
@@ -133,10 +100,7 @@ namespace SmartDictionary.XML
             {
                 if (i == index)
                 {
-                    var word = item.Attribute("word").Value;
-                    var translation = item.Attribute("translation").Value;
-
-                    return new Word { translation = translation, word = word };
+                    return item;
                 }
                 i++;
             }

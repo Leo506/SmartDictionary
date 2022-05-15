@@ -3,22 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SmartDictionary.XML;
 using System.IO;
-using System.Xml.Linq;
 
 namespace SmartDictionary
 {
-    public struct Word : IXmlRecord
+    public struct Word : SmartDictionary.XML.IXmlRecord
     {
         public string word { get; set; }
         public string translation { get; set; }
         public string notes { get; set; }
 
-        public XElement GetElement()
+        public System.Xml.Linq.XElement GetElement()
         {
-            var element = new XElement("Record");
-            element.Add(new XAttribute("word", word.ToLower()), new XAttribute("translation", translation.ToLower()), new XAttribute("notes", notes.ToLower()));
+            var element = new System.Xml.Linq.XElement("Record");
+            element.Add(new System.Xml.Linq.XAttribute("word", word.ToLower()), new System.Xml.Linq.XAttribute("translation", translation.ToLower()), new System.Xml.Linq.XAttribute("notes", notes.ToLower()));
             return element;
         }
     }
@@ -38,7 +36,7 @@ namespace SmartDictionary
                 return false;
 
             Word record = new Word() { word = word, translation = translate, notes = "" };
-            XmlWorker.AddRecord(record);
+            ModelToXml.AddWord(record);
 
             return true;
         }
@@ -57,7 +55,7 @@ namespace SmartDictionary
                 return false;
 
             Word record = new Word() { word = word, translation = translation, notes = notes };
-            XmlWorker.AddRecord(record);
+            ModelToXml.AddWord(record);
 
             return true;
         }
@@ -71,11 +69,11 @@ namespace SmartDictionary
 
         public Word GetRandomWord()
         {
-            var all = XmlWorker.GetRecordsCount();
+            var all = ModelToXml.GetWordsCount();
             var random = new Random();
             var index = random.Next(all);
 
-            var result = XmlWorker.GetRecord(index);
+            var result = ModelToXml.GetWord(index);
 
             if (result != null)
                 return result.Value;
@@ -102,13 +100,13 @@ namespace SmartDictionary
                     notes = words[2];
 
                 if (CheckWord(translation))
-                    XmlWorker.AddRecord(new Word() { word = word, translation = translation, notes = notes});
+                    ModelToXml.AddWord(new Word() { word = word, translation = translation, notes = notes});
             }
         }
 
         private bool CheckWord(string translation)
         {
-            var toCheck = XmlWorker.GetWord(translation);
+            var toCheck = ModelToXml.GetWord(translation);
             if (toCheck != null)
                 return false;
             return true;

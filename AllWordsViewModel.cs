@@ -16,7 +16,7 @@ namespace SmartDictionary
             Words = new ObservableCollection<Word>();
             for (int i = 0; i < XML.XmlWorker.GetRecordsCount(); i++)
             {
-                var word = XML.XmlWorker.GetRecord(i);
+                var word = ModelToXml.GetWord(i);
                 if (word != null)
                     Words.Add(word.Value);
             }
